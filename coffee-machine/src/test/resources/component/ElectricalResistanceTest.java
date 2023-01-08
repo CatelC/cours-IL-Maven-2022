@@ -1,5 +1,6 @@
-package fr.imt.coffee.machine.component;
+package component;
 
+import fr.imt.coffee.machine.component.ElectricalResistance;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

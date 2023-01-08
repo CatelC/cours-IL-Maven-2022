@@ -40,6 +40,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M7</version>
+                <configuration>
+                    <argLine>${surefireArgLine}</argLine>
+                    <skipTests>${skip.unit.tests}</skipTests>
+                    <excludes>
+                        <exclude>**/IT*.java</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -50,8 +57,8 @@
                         <phase>test</phase>
                         <configuration>
                             <tasks>
-                                <delete dir="${env.HOME}/jacoco"/>
-                                <mkdir dir="${env.HOME}/jacoco"/>
+                                <delete dir="${env.HOMEPATH}/jacoco"/>
+                                <mkdir dir="${env.HOMEPATH}/jacoco"/>
                             </tasks>
                         </configuration>
                         <goals>
@@ -75,6 +82,10 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+                            <propertyName>surefireArgLine</propertyName>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>report</id>
@@ -82,6 +93,10 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+                            <outputDirectory>${project.build.directory}/coverage-reports/jacoco-ut</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

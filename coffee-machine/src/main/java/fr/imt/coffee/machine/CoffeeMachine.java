@@ -22,6 +22,9 @@ public class CoffeeMachine {
     private final WaterPump waterPump;
     private final CoffeeGrinder coffeeGrinder;
     private final ElectricalResistance electricalResistance;
+
+
+
     private boolean isPlugged;
     private boolean isOutOfOrder;
     private int nbCoffeeMade;
@@ -83,7 +86,7 @@ public class CoffeeMachine {
      * @throws CannotMakeCremaWithSimpleCoffeeMachine Exception levée lorsque vous souhaitez faire un café type Crema avec un une machine classique
      */
     public CoffeeContainer makeACoffee(Container container, CoffeeType coffeeType) throws LackOfWaterInTankException, InterruptedException, MachineNotPluggedException, CupNotEmptyException, CoffeeTypeCupDifferentOfCoffeeTypeTankException, CannotMakeCremaWithSimpleCoffeeMachine {
-        if(isPlugged){
+        if(isPlugged==false){
             throw new MachineNotPluggedException("You must plug your coffee machine.");
         }
 
@@ -92,7 +95,7 @@ public class CoffeeMachine {
         }
 
         if (!container.isEmpty()){
-            throw new LackOfWaterInTankException("You must add more water in the water tank.");
+            throw new CupNotEmptyException("You must empty your container.");
         }
 
         if(coffeeType != this.beanTank.getBeanCoffeeType()){
